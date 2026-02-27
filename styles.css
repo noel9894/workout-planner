@@ -1,0 +1,203 @@
+:root {
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --surface-alt: #f8faff;
+  --text: #1a2233;
+  --text-muted: #5c677d;
+  --border: #d6dced;
+  --shadow: 0 10px 24px rgba(20, 34, 61, 0.08);
+  --radius: 14px;
+  --space-2: 0.75rem;
+  --space-3: 1rem;
+  --space-4: 1.25rem;
+  --space-5: 1.5rem;
+  --control-height: 2.75rem;
+  --ease: 200ms ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  line-height: 1.45;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app {
+  width: min(100%, 72rem);
+  margin-inline: auto;
+  padding: var(--space-3);
+  transition: background-color var(--ease), color var(--ease);
+}
+
+.app[data-theme='dark'] {
+  --bg: #111827;
+  --surface: #1f2937;
+  --surface-alt: #243142;
+  --text: #e5edf8;
+  --text-muted: #a6b3c9;
+  --border: #334155;
+  --shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+}
+
+.top-controls {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+  margin: calc(var(--space-3) * -1) calc(var(--space-3) * -1) var(--space-3);
+  padding: var(--space-3);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.control-group label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.control {
+  min-height: 44px;
+  height: var(--control-height);
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  padding: 0 0.85rem;
+  font-size: 1rem;
+  background: var(--surface);
+  color: var(--text);
+  transition:
+    opacity var(--ease),
+    transform var(--ease),
+    background-color var(--ease),
+    color var(--ease);
+}
+
+.control:focus-visible {
+  outline: 3px solid rgba(79, 124, 255, 0.4);
+  outline-offset: 1px;
+}
+
+.plan-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: var(--space-3);
+  transition:
+    opacity var(--ease),
+    transform var(--ease),
+    background-color var(--ease),
+    color var(--ease);
+}
+
+.plan-card h2 {
+  margin: 0 0 var(--space-2);
+  line-height: 1.2;
+}
+
+.plan-card .meta {
+  margin-bottom: var(--space-3);
+  color: var(--text-muted);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface-alt);
+}
+
+.plan-table {
+  width: 100%;
+  min-width: 40rem;
+  border-collapse: collapse;
+  background: var(--surface);
+}
+
+.plan-table th,
+.plan-table td {
+  padding: 0.75rem 0.8rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.plan-table th {
+  font-size: 0.86rem;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  background: var(--surface-alt);
+  white-space: nowrap;
+}
+
+.plan-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.table-wrap::after {
+  content: 'Swipe for more →';
+  display: block;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.content-swap.is-transitioning-out {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.content-swap.is-transitioning-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (min-width: 48rem) {
+  .app {
+    padding: var(--space-5);
+  }
+
+  .top-controls {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: end;
+    margin: calc(var(--space-5) * -1) calc(var(--space-5) * -1) var(--space-4);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .plan-card {
+    padding: var(--space-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .content-swap.is-transitioning-out,
+  .content-swap.is-transitioning-in {
+    opacity: 1;
+    transform: none;
+  }
+}
